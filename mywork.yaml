@@ -1,0 +1,9 @@
+---
+
+- hosts: all
+  tasks:
+  become_user:  sudo
+ - name: My test template
+   template:
+      src:  template.j2
+      dest:  /var/www/html/index.html

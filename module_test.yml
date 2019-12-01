@@ -1,0 +1,17 @@
+---
+- hosts: workstation
+  become_sudo: yes
+  become_user: root
+  become_method: sudo
+
+  tasks:
+    - name: install some packages
+      yum:
+        name: {{ item }}
+        state: nstalled
+      with_items:
+        - git
+        - httpd
+        - vim
+
+

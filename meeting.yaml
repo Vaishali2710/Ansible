@@ -1,0 +1,23 @@
+---
+-  hosts: all
+   become:  yes
+   become_user: root
+   become_method: sudo
+   vars:
+     day_time:  Evening
+     location: Hydrebad
+   tasks:
+     - name: install http 
+       yum:  
+         name: httpd 
+         state: installed 
+
+     - name: my test template
+       template:
+          src: template_new_1.j2
+          dest: /var/www/html/index.html   
+   
+     - name: start httpd
+       service: 
+         name: httpd
+         state: started

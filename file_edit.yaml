@@ -1,0 +1,21 @@
+---
+- hosts: all
+  become: yes
+  become_user: root
+  become_method: sudo
+  vars:
+    i_need_pass: default_pass
+  tasks:
+    - name: modify prop file
+      lineinfile:
+        path: /var/www/html/index.html
+        regexp: '^<br>applicatio_password='
+        line: '<br>application_password={{ i_need_pass }}' 
+      notify:
+        - start httpd 
+  handlers: 
+    - name: start httpd
+      service: name=httpd state=restarted
+
+    - name: print theusername
+      debug: msg="Logged in as user" 
